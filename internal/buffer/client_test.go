@@ -19,15 +19,18 @@ func (f *fakeGQL) MakeRequest(_ context.Context, _ *graphql.Request, resp *graph
 	if f.err != nil {
 		return f.err
 	}
-	b, _ := json.Marshal(f.data)
+	b, err := json.Marshal(f.data)
+	if err != nil {
+		return err
+	}
 	return json.Unmarshal(b, resp.Data)
 }
 
 func TestFindChannel(t *testing.T) {
 	fixture := map[string]interface{}{
 		"channels": []map[string]interface{}{
-			{"id": "6a073cec090476fb99230076", "name": "devgiroux", "service": "twitter"},
-			{"id": "6a077599090476fb99243bdc", "name": "davi-alvarenga-028614119", "service": "linkedin"},
+			{"id": "6a073cec090476fb99230076", "name": "devgiroux", "service": string(ServiceTwitter)},
+			{"id": "6a077599090476fb99243bdc", "name": "davi-alvarenga-028614119", "service": string(ServiceLinkedin)},
 		},
 	}
 
@@ -36,8 +39,8 @@ func TestFindChannel(t *testing.T) {
 		wantID  string
 		wantErr bool
 	}{
-		{service: "twitter", wantID: "6a073cec090476fb99230076"},
-		{service: "linkedin", wantID: "6a077599090476fb99243bdc"},
+		{service: string(ServiceTwitter), wantID: "6a073cec090476fb99230076"},
+		{service: string(ServiceLinkedin), wantID: "6a077599090476fb99243bdc"},
 		{service: "tiktok", wantErr: true},
 	}
 

@@ -52,9 +52,10 @@ func (c *BufferClient) FindChannel(ctx context.Context, service string) (*Channe
 	if err != nil {
 		return nil, fmt.Errorf("GetChannels: %w", err)
 	}
+	svc := Service(service)
 	for _, ch := range resp.Channels {
-		if string(ch.Service) == service {
-			return &Channel{ID: ch.Id, Name: ch.Name, Service: string(ch.Service)}, nil
+		if ch.Service == svc {
+			return &Channel{ID: ch.Id, Name: ch.Name, Service: service}, nil
 		}
 	}
 	return nil, fmt.Errorf("no channel for service %q in org %s", service, c.orgID)
