@@ -1,0 +1,25 @@
+# OWNER: Davi — replace the commented-out operations below with real GraphQL.
+# Run `make generate` after editing this file.
+#
+# Expected operations based on docs/bipline-prd.md:
+#
+# query GetChannels($organizationId: String!) {
+#   channels(input: { organizationId: $organizationId }) {
+#     id
+#     name
+#     service
+#   }
+# }
+#
+# mutation CreateIdea($organizationId: String!, $title: String!, $text: String!) {
+#   createIdea(input: {
+#     organizationId: $organizationId
+#     content: { title: $title, text: $text }
+#   }) {
+#     # Add fields here. Check schema.graphql for what createIdea returns.
+#     # If the return type is a union, add __typename and fields for each variant.
+#     # Example union pattern:
+#     #   ... on IdeaActionSuccess { idea { id } }
+#     #   ... on MutationError { message type }
+#   }
+# }
