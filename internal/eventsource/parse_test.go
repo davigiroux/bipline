@@ -47,7 +47,6 @@ func TestParse(t *testing.T) {
 				URL:   "https://github.com/devgiroux/safenudge/pull/42",
 				Title: "Add quiet hours setting",
 				Body:  "Lets users configure a window where notifications are suppressed.",
-				Tag:   "",
 			},
 		},
 		{
@@ -69,6 +68,13 @@ func TestParse(t *testing.T) {
 			eventName: "release",
 			payload:   []byte(`not json`),
 			wantErr:   true,
+		},
+		{
+			name:      "release with missing fields",
+			eventName: "release",
+			payload:   []byte(`{"release":{},"repository":{"full_name":"o/r"}}`),
+			wantErr:   true,
+			errSubstr: "missing required fields",
 		},
 	}
 

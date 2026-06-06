@@ -48,6 +48,9 @@ func parseRelease(payload []byte) (Event, error) {
 	if err := json.Unmarshal(payload, &p); err != nil {
 		return Event{}, fmt.Errorf("eventsource: parse release: %w", err)
 	}
+	if p.Release.HTMLURL == "" || p.Release.TagName == "" {
+		return Event{}, fmt.Errorf("eventsource: release payload missing required fields")
+	}
 	return Event{
 		Type:  "release",
 		Repo:  p.Repository.FullName,
@@ -65,6 +68,9 @@ func parsePR(payload []byte) (Event, error) {
 	}
 	if !p.PullRequest.Merged {
 		return Event{}, fmt.Errorf("eventsource: pull_request is not merged")
+	}
+	if p.PullRequest.HTMLURL == "" || p.PullRequest.Title == "" {
+		return Event{}, fmt.Errorf("eventsource: pull_request payload missing required fields")
 	}
 	return Event{
 		Type:  "pr",

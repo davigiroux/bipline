@@ -1,8 +1,6 @@
 package eventsource
 
 // Event is a normalized GitHub shipping event ready for the draft generator.
-// Phase 3 will add parsing functions to this package that produce Event values
-// from raw GitHub JSON payloads.
 type Event struct {
 	Type  string // "release"
 	Repo  string // "owner/repo"
