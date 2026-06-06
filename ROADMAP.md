@@ -1,23 +1,23 @@
 # ROADMAP - bipline
 
-Current phase: **Phase 0 - Spike** <!-- Davi: keep this in sync with CLAUDE.md -->
+Current phase: **Phase 2 - Draft generator** <!-- Davi: keep this in sync with CLAUDE.md -->
 
 Advance only when every box in a phase is checked.
 
-## Phase 0 - Spike (manual, no code)
-- [ ] Buffer API key works against `https://api.buffer.com`
-- [ ] Listed organizations, recorded org ID in CLAUDE.md
-- [ ] Listed channels, recorded service -> channel ID mapping
-- [ ] Created one draft by hand (curl), confirmed required args
-- [ ] Decided channel draft vs Idea (record in DECISION-LOG.md)
+## Phase 0 - Spike (manual, no code) ✅
+- [x] Buffer API key works against `https://api.buffer.com`
+- [x] Listed organizations, recorded org ID in CLAUDE.md
+- [x] Listed channels, recorded service -> channel ID mapping
+- [x] Created one draft by hand (curl), confirmed required args
+- [x] Decided channel draft vs Idea (record in DECISION-LOG.md)
 
 Notes: <!-- Davi -->
 
-## Phase 1 - Buffer client (Go)
-- [ ] genqlient generates bindings from the live schema
-- [ ] Resolves org, finds channel by service, creates a draft
-- [ ] Both PostActionSuccess and MutationError branches handled
-- [ ] Short package README committed
+## Phase 1 - Buffer client (Go) ✅
+- [x] genqlient generates bindings from the live schema
+- [x] Resolves org, finds channel by service, creates a draft
+- [x] Both mutation result branches handled (CreateIdeaPayload union, 6 variants)
+- [x] Short package README committed
 
 Notes: <!-- Davi -->
 
