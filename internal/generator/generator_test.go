@@ -38,8 +38,8 @@ func assertVoiceInvariants(t *testing.T, draft string, event eventsource.Event) 
 	if !strings.Contains(draft, event.URL) {
 		t.Errorf("draft missing event URL\nwant URL: %q\ndraft: %q", event.URL, draft)
 	}
-	if len(draft) > 500 {
-		t.Errorf("draft too long: %d chars (max 500)\ndraft: %q", len(draft), draft)
+	if runeCount := len([]rune(draft)); runeCount > 500 {
+		t.Errorf("draft too long: %d chars (max 500)\ndraft: %q", runeCount, draft)
 	}
 }
 

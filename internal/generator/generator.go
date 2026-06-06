@@ -27,7 +27,7 @@ func Draft(ctx context.Context, event eventsource.Event, voicePath string) (stri
 
 	msg, err := client.Messages.New(ctx, anthropic.MessageNewParams{
 		Model:     anthropic.ModelClaudeSonnet4_6,
-		MaxTokens: 500,
+		MaxTokens: 1024,
 		System: []anthropic.TextBlockParam{
 			{Text: string(voice)},
 		},
@@ -37,6 +37,9 @@ func Draft(ctx context.Context, event eventsource.Event, voicePath string) (stri
 	})
 	if err != nil {
 		return "", fmt.Errorf("generator: claude: %w", err)
+	}
+	if msg.StopReason == anthropic.StopReasonMaxTokens {
+		return "", fmt.Errorf("generator: response truncated (hit max_tokens); raise MaxTokens or shorten input")
 	}
 	if len(msg.Content) == 0 {
 		return "", fmt.Errorf("generator: empty response from Claude")
