@@ -1,4 +1,4 @@
-query GetChannels($organizationId: String!) {
+query GetChannels($organizationId: OrganizationId!) {
   channels(input: { organizationId: $organizationId }) {
     id
     name
@@ -6,7 +6,7 @@ query GetChannels($organizationId: String!) {
   }
 }
 
-mutation CreateIdea($organizationId: String!, $title: String!, $text: String!) {
+mutation CreateIdea($organizationId: ID!, $title: String!, $text: String!) {
   createIdea(input: {
     organizationId: $organizationId
     content: { title: $title, text: $text }

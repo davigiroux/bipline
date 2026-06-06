@@ -3,3 +3,28 @@ operations:
   - operations.graphql
 generated: generated.go
 package: buffer
+bindings:
+  OrganizationId:
+    type: string
+  ChannelId:
+    type: string
+  IdeaId:
+    type: string
+  InvitationId:
+    type: string
+  NoteId:
+    type: string
+  DraftId:
+    type: string
+  AccountId:
+    type: string
+  PostId:
+    type: string
+  TagId:
+    type: string
+  PostGroupId:
+    type: string
+  Uuid:
+    type: string
+  DateTime:
+    type: string
