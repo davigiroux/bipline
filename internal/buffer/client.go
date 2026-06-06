@@ -54,10 +54,14 @@ func (c *BufferClient) CreateIdea(ctx context.Context, title, text string) error
 	}
 	switch r := resp.CreateIdea.(type) {
 	case *CreateIdeaCreateIdea:
-		_ = r
+		if r.Id == "" {
+			return fmt.Errorf("buffer: createIdea returned Idea with empty id")
+		}
 		return nil
 	case *CreateIdeaCreateIdeaIdeaResponse:
-		_ = r
+		if r.Idea.Id == "" {
+			return fmt.Errorf("buffer: createIdea returned IdeaResponse with empty idea id")
+		}
 		return nil
 	case *CreateIdeaCreateIdeaInvalidInputError:
 		return fmt.Errorf("buffer: %s", r.Message)

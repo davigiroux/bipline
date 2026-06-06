@@ -52,17 +52,22 @@ func TestCreateIdea_Success_IdeaResponse(t *testing.T) {
 	}
 }
 
-func TestCreateIdea_InvalidInputError(t *testing.T) {
-	fixture := map[string]interface{}{
-		"createIdea": map[string]interface{}{
-			"__typename": "InvalidInputError",
-			"message":    "invalid organizationId",
-		},
-	}
-	c := &BufferClient{orgID: "test-org", gql: &fakeGQL{data: fixture}}
-	err := c.CreateIdea(context.Background(), "test title", "test text")
-	if err == nil {
-		t.Fatal("want error, got nil")
+func TestCreateIdea_Errors(t *testing.T) {
+	errTypes := []string{"InvalidInputError", "UnauthorizedError", "UnexpectedError", "LimitReachedError"}
+	for _, typename := range errTypes {
+		t.Run(typename, func(t *testing.T) {
+			fixture := map[string]interface{}{
+				"createIdea": map[string]interface{}{
+					"__typename": typename,
+					"message":    "test error from " + typename,
+				},
+			}
+			c := &BufferClient{orgID: "test-org", gql: &fakeGQL{data: fixture}}
+			err := c.CreateIdea(context.Background(), "title", "text")
+			if err == nil {
+				t.Fatalf("%s: want error, got nil", typename)
+			}
+		})
 	}
 }
 
