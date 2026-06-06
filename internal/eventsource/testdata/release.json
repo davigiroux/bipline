@@ -1,0 +1,12 @@
+{
+  "action": "published",
+  "release": {
+    "tag_name": "v1.2.0",
+    "name": "v1.2.0 - Add batching",
+    "body": "Groups notifications by sender. Cuts interruptions by ~60%.",
+    "html_url": "https://github.com/devgiroux/safenudge/releases/tag/v1.2.0"
+  },
+  "repository": {
+    "full_name": "devgiroux/safenudge"
+  }
+}
