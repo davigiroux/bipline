@@ -1,3 +1,6 @@
+-include .env
+export
+
 .PHONY: schema generate test probe
 
 schema:
