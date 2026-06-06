@@ -33,7 +33,7 @@ bipline turns GitHub shipping events (a published release, a merged PR) into rev
 Everything else (CLI wiring, test scaffolding, `genqlient.yaml`, Actions YAML, struct plumbing) is fair to draft.
 
 ## Current phase
-**Phase 0 - Spike (manual, no code yet).** <!-- Davi: update this line as you advance -->
+**Phase 1 - Buffer client - complete. Starting Phase 2 - Draft generator.** <!-- Davi: update this line as you advance -->
 
 ## Buffer API context
 Endpoint: `https://api.buffer.com`. Auth: `Authorization: Bearer $BUFFER_API_KEY`.
