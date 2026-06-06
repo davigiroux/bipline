@@ -63,14 +63,11 @@ func (c *BufferClient) CreateIdea(ctx context.Context, title, text string) error
 			return fmt.Errorf("buffer: createIdea returned IdeaResponse with empty idea id")
 		}
 		return nil
-	case *CreateIdeaCreateIdeaInvalidInputError:
-		return fmt.Errorf("buffer: %s", r.Message)
-	case *CreateIdeaCreateIdeaUnauthorizedError:
-		return fmt.Errorf("buffer: %s", r.Message)
-	case *CreateIdeaCreateIdeaUnexpectedError:
-		return fmt.Errorf("buffer: %s", r.Message)
-	case *CreateIdeaCreateIdeaLimitReachedError:
-		return fmt.Errorf("buffer: %s", r.Message)
+	case *CreateIdeaCreateIdeaInvalidInputError,
+		*CreateIdeaCreateIdeaUnauthorizedError,
+		*CreateIdeaCreateIdeaUnexpectedError,
+		*CreateIdeaCreateIdeaLimitReachedError:
+		return fmt.Errorf("buffer: %s", r.(interface{ GetMessage() string }).GetMessage())
 	default:
 		return fmt.Errorf("buffer: unexpected createIdea response: %T", resp.CreateIdea)
 	}
