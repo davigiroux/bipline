@@ -1,0 +1,10 @@
+# binaries
+/bipline
+/probe
+
+# test binaries
+*.test
+
+# env files
+.env
+.env.local
