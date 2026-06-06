@@ -45,6 +45,33 @@ func New(apiKey, orgID string) *BufferClient {
 	}
 }
 
+// CreateIdea creates a draft idea in the org's Ideas board.
+// The mutation returns a CreateIdeaPayload union; all branches are handled.
+func (c *BufferClient) CreateIdea(ctx context.Context, title, text string) error {
+	resp, err := CreateIdea(ctx, c.gql, c.orgID, title, text)
+	if err != nil {
+		return fmt.Errorf("CreateIdea: %w", err)
+	}
+	switch r := resp.CreateIdea.(type) {
+	case *CreateIdeaCreateIdea:
+		_ = r
+		return nil
+	case *CreateIdeaCreateIdeaIdeaResponse:
+		_ = r
+		return nil
+	case *CreateIdeaCreateIdeaInvalidInputError:
+		return fmt.Errorf("buffer: %s", r.Message)
+	case *CreateIdeaCreateIdeaUnauthorizedError:
+		return fmt.Errorf("buffer: %s", r.Message)
+	case *CreateIdeaCreateIdeaUnexpectedError:
+		return fmt.Errorf("buffer: %s", r.Message)
+	case *CreateIdeaCreateIdeaLimitReachedError:
+		return fmt.Errorf("buffer: %s", r.Message)
+	default:
+		return fmt.Errorf("buffer: unexpected createIdea response: %T", resp.CreateIdea)
+	}
+}
+
 // FindChannel returns the channel matching service (e.g. "twitter", "linkedin").
 // Returns error if no channel is found for that service.
 func (c *BufferClient) FindChannel(ctx context.Context, service string) (*Channel, error) {
