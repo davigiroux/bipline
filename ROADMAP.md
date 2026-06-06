@@ -1,6 +1,6 @@
 # ROADMAP - bipline
 
-Current phase: **Phase 2 - Draft generator** <!-- Davi: keep this in sync with CLAUDE.md -->
+Current phase: **Phase 3 - Event source** <!-- Davi: keep this in sync with CLAUDE.md -->
 
 Advance only when every box in a phase is checked.
 
@@ -21,10 +21,10 @@ Notes: <!-- Davi -->
 
 Notes: <!-- Davi -->
 
-## Phase 2 - Draft generator (Go)
-- [ ] `generator.Draft(event, voice)` returns a draft string
-- [ ] Golden tests on 2-3 real past events pass voice invariants
-- [ ] No Buffer network calls in this package
+## Phase 2 - Draft generator (Go) ✅
+- [x] `generator.Draft(event, voice)` returns a draft string
+- [x] Golden tests on 2-3 real past events pass voice invariants
+- [x] No Buffer network calls in this package
 
 Notes:
 

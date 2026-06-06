@@ -1,0 +1,12 @@
+{
+  "action": "closed",
+  "pull_request": {
+    "merged": true,
+    "title": "Add quiet hours setting",
+    "body": "Lets users configure a window where notifications are suppressed.",
+    "html_url": "https://github.com/devgiroux/safenudge/pull/42"
+  },
+  "repository": {
+    "full_name": "devgiroux/safenudge"
+  }
+}
