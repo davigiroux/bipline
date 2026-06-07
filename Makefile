@@ -1,7 +1,7 @@
 -include .env
 export
 
-.PHONY: schema generate test probe test-integration
+.PHONY: schema generate test probe test-integration build
 
 schema:
 	bash tools/fetch-schema.sh
@@ -17,3 +17,6 @@ probe:
 
 test-integration:
 	go test -tags integration -v ./internal/generator/
+
+build:
+	go build ./cmd/bipline/

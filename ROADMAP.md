@@ -1,6 +1,6 @@
 # ROADMAP - bipline
 
-Current phase: **Phase 3 - Event source** <!-- Davi: keep this in sync with CLAUDE.md -->
+Current phase: **Phase 4 - Glue: CLI + Action** <!-- Davi: keep this in sync with CLAUDE.md -->
 
 Advance only when every box in a phase is checked.
 
@@ -28,10 +28,10 @@ Notes: <!-- Davi -->
 
 Notes:
 
-## Phase 3 - Event source (Go)
-- [ ] Parses a `release.published` fixture into a normalized Event
-- [ ] Parses a merged-PR fixture into a normalized Event
-- [ ] Unit tested against fixture JSON
+## Phase 3 - Event source (Go) ✅
+- [x] Parses a `release.published` fixture into a normalized Event
+- [x] Parses a merged-PR fixture into a normalized Event
+- [x] Unit tested against fixture JSON
 
 Notes:
 
