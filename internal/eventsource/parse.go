@@ -29,6 +29,14 @@ type pullRequestPayload struct {
 	} `json:"repository"`
 }
 
+// ErrSkip is returned when the event should be silently skipped — it is not
+// a supported event type, or the pull_request is not merged.
+type ErrSkip struct {
+	reason string
+}
+
+func (e ErrSkip) Error() string { return e.reason }
+
 // Parse parses a GitHub event payload into a normalized Event.
 // eventName is the GitHub event name ("release" or "pull_request").
 // payload is the raw JSON bytes from GITHUB_EVENT_PATH.
@@ -39,7 +47,7 @@ func Parse(eventName string, payload []byte) (Event, error) {
 	case "pull_request":
 		return parsePR(payload)
 	default:
-		return Event{}, fmt.Errorf("eventsource: unsupported event %q", eventName)
+		return Event{}, ErrSkip{reason: fmt.Sprintf("eventsource: unsupported event %q", eventName)}
 	}
 }
 
@@ -67,7 +75,7 @@ func parsePR(payload []byte) (Event, error) {
 		return Event{}, fmt.Errorf("eventsource: parse pull_request: %w", err)
 	}
 	if !p.PullRequest.Merged {
-		return Event{}, fmt.Errorf("eventsource: pull_request is not merged")
+		return Event{}, ErrSkip{reason: "eventsource: pull_request is not merged"}
 	}
 	if p.PullRequest.HTMLURL == "" || p.PullRequest.Title == "" {
 		return Event{}, fmt.Errorf("eventsource: pull_request payload missing required fields")

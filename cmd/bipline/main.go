@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -33,9 +34,18 @@ func main() {
 
 	event, err := eventsource.Parse(vals["GITHUB_EVENT_NAME"], payload)
 	if err != nil {
-		// Unsupported event type or unmerged PR — not a failure, skip silently.
-		fmt.Fprintf(os.Stderr, "bipline: skip: %v\n", err)
-		os.Exit(0)
+		var skip eventsource.ErrSkip
+		if errors.As(err, &skip) {
+			// Not a failure — skip.
+			fmt.Fprintf(os.Stderr, "bipline: skip: %v\n", err)
+			os.Exit(0)
+		}
+		fmt.Fprintf(os.Stderr, "bipline: parse event: %v\n", err)
+		os.Exit(1)
+	}
+
+	if event.Title == "" {
+		event.Title = event.Tag // releases with no name set fall back to tag
 	}
 
 	ctx := context.Background()
